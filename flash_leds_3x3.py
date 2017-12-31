@@ -4,7 +4,7 @@ Flash LEDs with a Raspberry PI
 Parts needed:
     1 x Raspberry PI
     9 x LEDS
-    1 x switch non-latching
+    2 x switch non-latching
 """
 
 import time
@@ -12,7 +12,9 @@ import RPi.GPIO as GPIO
 
 leds = [14, 15, 18, 17, 27, 22, 10, 9, 11]
 levels = [2, 3, 4]
-btnstartstop = 12
+run = True
+btnstartstop = 23
+btnplay = True
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -40,6 +42,7 @@ def setuplevels():
 def alloff():
     """ Turn off all LEDs and set ground voltage to high
     """
+    checkifbuttonpressed()
     global leds
     global levels
     for led in leds:
@@ -47,6 +50,14 @@ def alloff():
     for level in levels:
         GPIO.output(level, GPIO.HIGH)
 
+def checkifbuttonpressed():
+	global run
+	""" Check if Button pressed
+	"""
+	print ("Checking")
+	if not GPIO.input(btnstartstop):
+	    	print ("Pressed", run)
+		run = False
 
 setupbuttons()
 setupleds()
@@ -57,16 +68,20 @@ setuplevels()
 
 
 def main():
+
+    global run
     try:
-        while True:
-            if not GPIO.input(btnstartstop):
-                break
+        while run:
+            #if not GPIO.input(btnstartstop):
+            #    run = False
+            print ("loop ", run)
             for level in levels:
                 for led in leds:
-                    alloff()
+		    alloff()
+		    if run==False: break
                     GPIO.output(led, GPIO.HIGH)
                     GPIO.output(level, GPIO.LOW)
-                    # time.sleep(0.01)
+                    time.sleep(0.05)
     except KeyboardInterrupt:
         GPIO.cleanup()
 
