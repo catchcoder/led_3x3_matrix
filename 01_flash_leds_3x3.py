@@ -10,11 +10,12 @@ Parts needed:
 import time
 import RPi.GPIO as GPIO
 
-leds = [14, 15, 18, 17, 27, 22, 10, 9, 11]
+leds = [17, 27, 22, 10, 9, 11, 5, 6, 15]
 levels = [2, 3, 4]
 run = True
-btnstartstop = 23
-btnplay = True
+btnstartstop = 19
+btnplay = 26
+delay = 0.5
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -50,14 +51,14 @@ def alloff():
     for level in levels:
         GPIO.output(level, GPIO.HIGH)
 
+
 def checkifbuttonpressed():
-	global run
-	""" Check if Button pressed
+    global run
+    """ Check if Button pressed
 	"""
-	print ("Checking")
-	if not GPIO.input(btnstartstop):
-	    	print ("Pressed", run)
-		run = False
+    if not GPIO.input(btnstartstop):
+        run = False
+
 
 setupbuttons()
 setupleds()
@@ -72,16 +73,14 @@ def main():
     global run
     try:
         while run:
-            #if not GPIO.input(btnstartstop):
-            #    run = False
-            print ("loop ", run)
             for level in levels:
                 for led in leds:
-		    alloff()
-		    if run==False: break
+                    alloff()
+                    if run == False:
+                        break
                     GPIO.output(led, GPIO.HIGH)
                     GPIO.output(level, GPIO.LOW)
-                    time.sleep(0.05)
+                    time.sleep(delay)
     except KeyboardInterrupt:
         GPIO.cleanup()
 
