@@ -10,12 +10,12 @@ Parts needed:
 import time
 import RPi.GPIO as GPIO
 
-leds = [17, 27, 22, 10, 9, 11, 5, 6, 15]
+leds = [17, 27, 22, 10, 9, 11, 5, 6, 13]
 levels = [2, 3, 4]
 run = True
 btnstartstop = 19
 btnplay = 26
-delay = 0.5
+delay = 0.01
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 

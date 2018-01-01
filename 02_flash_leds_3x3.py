@@ -10,12 +10,13 @@ Parts needed:
 import time
 import RPi.GPIO as GPIO
 
-leds = [17, 27, 22, 10, 9, 11, 5, 6, 15]
+leds = [17, 27, 22, 10, 9, 11, 5, 6, 13]
 levels = [2, 3, 4]
+pattern = [17, 27, 22, 11, 9, 10, 5, 6, 13]
 run = True
 btnstartstop = 19
 btnplay = 26
-delay = 0.5
+delay = 0.3
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -73,8 +74,8 @@ def main():
     global run
     try:
         while run:
-            for level in levels:
-                for led in leds:
+            for led in pattern:
+                for level in levels:
                     alloff()
                     if run == False:
                         break
