@@ -1,5 +1,6 @@
 # Led 3x3 matix
 Led 3x3 matrix for Raspberry PI using Python coding
+[![Requirements Status](https://requires.io/github/catchcoder/led_3x3_matix/requirements.svg?branch=master)](https://requires.io/github/catchcoder/led_3x3_matix/requirements/?branch=master)
 
 # Parts needed
 
