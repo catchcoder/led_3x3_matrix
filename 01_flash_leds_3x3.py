@@ -3,7 +3,7 @@
 01 Flash LEDs with a Raspberry PI
 Parts needed:
     1 x Raspberry PI
-    9 x LEDS
+   27 x LEDS
     2 x switch non-latching
 """
 
