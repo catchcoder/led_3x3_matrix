@@ -12,11 +12,14 @@ import RPi.GPIO as GPIO
 
 leds = [17, 27, 22, 10, 9, 11, 5, 6, 13]
 levels = [2, 3, 4]
-pattern = [17, 27, 22, 11, 9, 10, 5, 6, 13]
+pattern = [[9,2,9,3,9,4],
+	   [17,2,17,3,17,4,22,2,22,3,22,4,13,2,13,3,13,4,5,2,5,3,5,4],
+           [27,2,27,3,27,4,11,2,11,3,11,4,6,2,6,3,6,4,10,2,10,3,10,4]]
+
 run = True
 btnstartstop = 19
 btnplay = 26
-delay = 0.3
+delay = 0.05
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -74,14 +77,20 @@ def main():
     global run
     try:
         while run:
-            for led in pattern:
-                for level in levels:
-                    alloff()
-                    if run == False:
-                        break
-                    GPIO.output(led, GPIO.HIGH)
-                    GPIO.output(level, GPIO.LOW)
-                    time.sleep(delay)
+            for leds in pattern:
+		alloff()
+                
+                if run == False:
+                    break
+		i = 0
+		while i< len(leds):
+		    alloff()
+		    GPIO.output(leds[i], GPIO.HIGH)
+                    GPIO.output(leds[i+1], GPIO.LOW)
+                    time.sleep(0.05)
+	            i +=2		    
+                time.sleep(delay)
+
     except KeyboardInterrupt:
         GPIO.cleanup()
 
