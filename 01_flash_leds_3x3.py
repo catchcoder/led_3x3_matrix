@@ -17,7 +17,7 @@ except ImportError:
     from RPi import GPIO
 
 import time
-
+import sys
 
 leds = [17, 27, 22, 10, 9, 11, 5, 6, 13]
 levels = [2, 3, 4]
@@ -94,7 +94,7 @@ def main():
         GPIO.cleanup()
 
     GPIO.cleanup()
-
+    sys.exit(0)
 
 if __name__ == '__main__':
     main()
