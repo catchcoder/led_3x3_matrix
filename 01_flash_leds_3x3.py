@@ -8,14 +8,11 @@ Parts needed:
 """
 
 try:
-    """ Try and import GPIO for Raspberry Pi.
-    If it fails import fake GPIO for CI.
-    """
+    # Try and import GPIO for Raspberry Pi.
+    # If it fails import fake GPIO for CI.
     import RPi.GPIO as GPIO
 except ImportError:
-    """ Import fake as GPIO.
-    https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0.
-    """
+    # Import fake as GPIO https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0.
     from RPi import GPIO
 
 import time
@@ -76,7 +73,7 @@ setuplevels()
 
 
 def main():
-    """ Basic light up.
+    """ Flash the LEDs.
     """
     try:
         while RUN:
