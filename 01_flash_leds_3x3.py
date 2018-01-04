@@ -1,3 +1,4 @@
+
 """
 01 Flash LEDS with a Raspberry PI
 Parts needed:
@@ -7,8 +8,8 @@ Parts needed:
 """
 
 try:
-    """ Try and import GPIO for Raspberry Pi,
-    if it fails import fake GPIO for CI """
+    """ Try and import GPIO for Raspberry Pi, if it fails import fake GPIO for CI
+    """
     import RPi.GPIO as GPIO
 except ImportError:
     """ import fake as GPIO https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0 """

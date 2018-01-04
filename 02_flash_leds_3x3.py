@@ -1,3 +1,4 @@
+
 """
 Flash LEDS with a Raspberry PI
 Parts needed:
@@ -7,8 +8,8 @@ Parts needed:
 """
 
 try:
-    """ Try and import GPIO for Raspberry Pi,
-    if it fails import fake GPIO for CI """
+    """ Try and import GPIO for Raspberry Pi, if it fails import fake GPIO for CI
+    """
     import RPi.GPIO as GPIO
 except ImportError:
     """ import fake GPIO
@@ -19,8 +20,8 @@ import time
 import sys
 
 
-LEDS = [17, 27, 22, 10, 9, 11, 5, 6, 13]
-LEVELS = [2, 3, 4]
+LEDS_PINS = [17, 27, 22, 10, 9, 11, 5, 6, 13]
+LEVELS_PINS = [2, 3, 4]
 PATTERN = [
     [9, 2, 9, 3, 9, 4],
     [17, 2, 17, 3, 17, 4, 22, 2, 22, 3, 22, 4, 13, 2, 13, 3, 13, 4, 5, 2, 5, 3,
@@ -45,14 +46,14 @@ def setupbuttons():
 def setupleds():
     """ Setup GPIOs for LEDS
     """
-    for led in LEDS:
+    for led in LEDS_PINS:
         GPIO.setup(led, GPIO.OUT)
 
 
 def setuplevels():
     """ Setup negitive for LEDS
     """
-    for level in LEVELS:
+    for level in LEVELS_PINS:
         GPIO.setup(level, GPIO.OUT)
 
 
@@ -61,9 +62,9 @@ def alloff():
     """
     checkifbuttonpressed()
 
-    for led in LEDS:
+    for led in LEDS_PINS:
         GPIO.output(led, GPIO.LOW)
-    for level in LEVELS:
+    for level in LEVELS_PINS:
         GPIO.output(level, GPIO.HIGH)
 
 
