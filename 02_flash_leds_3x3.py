@@ -6,17 +6,19 @@ Parts needed:
    27 x LEDS
     2 x switch non-latching
 """
+
 try:
+    """ Try and import GPIO for Raspberry Pi, if fail import fake GPIO for CI
+    """
     import RPi.GPIO as GPIO
 except ImportError:
-    """
-    import fake GPIO
+    """ import fake GPIO
     https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0
     """
     from RPi import GPIO
 
 import time
-#import RPi.GPIO as GPIO
+
 
 leds = [17, 27, 22, 10, 9, 11, 5, 6, 13]
 levels = [2, 3, 4]
@@ -106,6 +108,7 @@ def main():
         GPIO.cleanup()
 
     GPIO.cleanup()
+    sys.exit(0)
 
 
 if __name__ == '__main__':

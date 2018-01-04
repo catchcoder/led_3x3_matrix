@@ -2,10 +2,12 @@
 Led 3x3 matrix for Raspberry PI using Python coding
 
 ### Status
-* [![Requirements Status](https://requires.io/github/catchcoder/led_3x3_matix/requirements.svg?branch=master)](https://requires.io/github/catchcoder/led_3x3_matix/requirements/?branch=master)
-* [![Build Status](https://travis-ci.org/catchcoder/led_3x3_matix.svg?branch=master)](https://travis-ci.org/catchcoder/led_3x3_matix)
-* [![GitHub version](https://badge.fury.io/gh/catchcoder%2Fled_3x3_matix.svg)](https://badge.fury.io/gh/catchcoder%2Fled_3x3_matix)
-* [![RaspberryPI version](https://img.shields.io/badge/Raspberry%20PI%20-2%2C%203%20and%20Zero-ff69b4.svg)]()
+[![Requirements Status](https://requires.io/github/catchcoder/led_3x3_matix/requirements.svg?branch=master)](https://requires.io/github/catchcoder/led_3x3_matix/requirements/?branch=master)
+[![Build Status](https://travis-ci.org/catchcoder/led_3x3_matix.svg?branch=master)](https://travis-ci.org/catchcoder/led_3x3_matix)
+[![GitHub version](https://badge.fury.io/gh/catchcoder%2Fled_3x3_matix.svg)](https://badge.fury.io/gh/catchcoder%2Fled_3x3_matix)
+[![Code Health](https://landscape.io/github/catchcoder/led_3x3_matix/master/landscape.svg?style=flat)](https://landscape.io/github/catchcoder/led_3x3_matix/master)
+[![RaspberryPI version](https://img.shields.io/badge/Raspberry%20PI%20-2%2C%203%20and%20Zero-ff69b4.svg)]()
+
 ---
 
 # Parts needed

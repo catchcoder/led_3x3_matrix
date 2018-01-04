@@ -8,6 +8,8 @@ Parts needed:
 """
 
 try:
+    """ Try and import GPIO for Raspberry Pi, if fail import fake GPIO for CI
+    """
     import RPi.GPIO as GPIO
 except ImportError:
     """
@@ -64,7 +66,7 @@ def alloff():
 def checkifbuttonpressed():
     global run
     """ Check if Button pressed
-	"""
+    """
     if not GPIO.input(btnstartstop):
         run = False
 
@@ -85,7 +87,7 @@ def main():
             for level in levels:
                 for led in leds:
                     alloff()
-                    if run == False:
+                    if not run:
                         break
                     GPIO.output(led, GPIO.HIGH)
                     GPIO.output(level, GPIO.LOW)
@@ -95,6 +97,7 @@ def main():
 
     GPIO.cleanup()
     sys.exit(0)
+
 
 if __name__ == '__main__':
     main()

@@ -1,3 +1,1 @@
-build-utils==0.1.1
-fakeRPiGPIO==0.3a0
 RPi.GPIO==0.6.3
