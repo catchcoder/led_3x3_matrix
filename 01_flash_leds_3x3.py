@@ -1,5 +1,5 @@
 """
-01 Flash LEDs with a Raspberry PI
+01 Flash LEDS with a Raspberry PI
 Parts needed:
     1 x Raspberry PI
    27 x LEDS
@@ -8,23 +8,21 @@ Parts needed:
 
 try:
     """ Try and import GPIO for Raspberry Pi,
-    if it fails import fake GPIO for CI
-    """
+    if it fails import fake GPIO for CI """
     import RPi.GPIO as GPIO
 except ImportError:
-    """ import fake as GPIO
-    https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0"""
+    """ import fake as GPIO https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0 """
     from RPi import GPIO
 
 import time
 import sys
 
-leds = [17, 27, 22, 10, 9, 11, 5, 6, 13]
-levels = [2, 3, 4]
-run = True
-btnstartstop = 19
-btnplay = 26
-delay = 0.01
+LEDS = [17, 27, 22, 10, 9, 11, 5, 6, 13]
+LEVELS = [2, 3, 4]
+RUN = True
+BTNSTARTSTOP = 19
+BTNPLAY = 26
+DELAY = 0.01
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -32,40 +30,40 @@ GPIO.setwarnings(False)
 def setupbuttons():
     """ Setup Start/Stop button on GPIO12
     """
-    GPIO.setup(btnstartstop, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(BTNSTARTSTOP, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 def setupleds():
     """ Setup GPIOs for LEDS
     """
-    for led in leds:
+    for led in LEDS:
         GPIO.setup(led, GPIO.OUT)
 
 
 def setuplevels():
-    """ Setup negitive for LEDs
+    """ Setup negitive for LEDS
     """
-    for level in levels:
+    for level in LEVELS:
         GPIO.setup(level, GPIO.OUT)
 
 
 def alloff():
-    """ Turn off all LEDs and set ground voltage to high
+    """ Turn off all LEDS and set ground voltage to high
     """
     checkifbuttonpressed()
 
-    for led in leds:
+    for led in LEDS:
         GPIO.output(led, GPIO.LOW)
-    for level in levels:
+    for level in LEVELS:
         GPIO.output(level, GPIO.HIGH)
 
 
 def checkifbuttonpressed():
     """ Check if Button pressed
     """
-    global run
-    if not GPIO.input(btnstartstop):
-        run = False
+    global RUN
+    if not GPIO.input(BTNSTARTSTOP):
+        RUN = False
 
 
 setupbuttons()
@@ -77,15 +75,15 @@ def main():
     """ Basic light up
     """
     try:
-        while run:
-            for level in levels:
-                for led in leds:
+        while RUN:
+            for level in LEVELS:
+                for led in LEDS:
                     alloff()
-                    if not run:
+                    if not RUN:
                         break
                     GPIO.output(led, GPIO.HIGH)
                     GPIO.output(level, GPIO.LOW)
-                    time.sleep(delay)
+                    time.sleep(DELAY)
     except KeyboardInterrupt:
         GPIO.cleanup()
 
