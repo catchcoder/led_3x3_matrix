@@ -1,0 +1,13 @@
+doc-warnings: no # experimental, raises an exception
+test-warnings: no
+strictness: veryhigh
+max-line-length: 160
+# We don't use any of the auto-detected things, and
+# auto-detection slows down startup
+autodetect: false
+requirements:
+    - requirements_ci.txt
+
+python-targets:
+#  - 2
+  - 3 # landscape.io seems to fail if we run both py2 and py3?
