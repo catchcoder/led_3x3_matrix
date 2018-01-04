@@ -1,6 +1,6 @@
 doc-warnings: no # experimental, raises an exception
 test-warnings: no
-strictness: high
+strictness: low
 max-line-length: 160
 # We don't use any of the auto-detected things, and
 # auto-detection slows down startup
