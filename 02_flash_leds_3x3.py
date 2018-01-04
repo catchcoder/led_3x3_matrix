@@ -1,4 +1,3 @@
-
 """
 Flash LEDs with a Raspberry PI
 Parts needed:
@@ -8,16 +7,18 @@ Parts needed:
 """
 
 try:
-    """ Try and import GPIO for Raspberry Pi, if fail import fake GPIO for CI
+    """ Try and import GPIO for Raspberry Pi,
+    if it fails import fake GPIO for CI
     """
     import RPi.GPIO as GPIO
 except ImportError:
     """ import fake GPIO
-    https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0
-    """
+    https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0 """
+
     from RPi import GPIO
 
 import time
+import sys
 
 
 leds = [17, 27, 22, 10, 9, 11, 5, 6, 13]
@@ -61,8 +62,7 @@ def alloff():
     """ Turn off all LEDs and set ground voltage to high
     """
     checkifbuttonpressed()
-    global leds
-    global levels
+
     for led in leds:
         GPIO.output(led, GPIO.LOW)
     for level in levels:
@@ -81,13 +81,10 @@ setupbuttons()
 setupleds()
 setuplevels()
 
-""" Basic light up
-"""
-
 
 def main():
-
-    global run
+    """ Basic light up
+    """
     try:
         while run:
             for leds in pattern:
