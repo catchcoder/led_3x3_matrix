@@ -13,8 +13,7 @@ try:
     import RPi.GPIO as GPIO
 except ImportError:
     """ import fake GPIO
-    https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0
-    """
+    https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0"""
     from RPi import GPIO
 
 import time
