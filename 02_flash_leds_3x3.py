@@ -1,6 +1,5 @@
 
-"""
-Flash LEDS with a Raspberry PI
+""" Flash LEDS with a Raspberry PI
 Parts needed:
     1 x Raspberry PI
    27 x LEDS
@@ -8,12 +7,14 @@ Parts needed:
 """
 
 try:
-    """ Try and import GPIO for Raspberry Pi, if it fails import fake GPIO for CI
+    """ Try and import GPIO for Raspberry Pi.
+    If it fails import fake GPIO for CI.
     """
     import RPi.GPIO as GPIO
 except ImportError:
-    """ import fake GPIO
-    https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0"""
+    """ Import fake GPIO.
+    https://pypi.python.org/pypi/fakeRPiGPIO/0.2a0.
+    """
     from RPi import GPIO
 
 import time
@@ -38,27 +39,27 @@ GPIO.setwarnings(False)
 
 
 def setupbuttons():
-    """ Setup Start/Stop button on GPIO12
+    """ Setup Start/Stop button on GPIO12.
     """
     GPIO.setup(BTNSTARTSTOP, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 def setupleds():
-    """ Setup GPIOs for LEDS
+    """ Setup GPIOs for LEDS.
     """
     for led in LEDS_PINS:
         GPIO.setup(led, GPIO.OUT)
 
 
 def setuplevels():
-    """ Setup negitive for LEDS
+    """ Setup negitive for LEDS.
     """
     for level in LEVELS_PINS:
         GPIO.setup(level, GPIO.OUT)
 
 
 def alloff():
-    """ Turn off all LEDS and set ground voltage to high
+    """ Turn off all LEDS and set ground voltage to high.
     """
     checkifbuttonpressed()
 
@@ -69,7 +70,7 @@ def alloff():
 
 
 def checkifbuttonpressed():
-    """ Check if Button pressed
+    """ Check if Button pressed.
     """
     global RUN
     if not GPIO.input(BTNSTARTSTOP):
@@ -82,7 +83,7 @@ setuplevels()
 
 
 def main():
-    """ Basic light up
+    """ Basic light up.
     """
     try:
         while RUN:
