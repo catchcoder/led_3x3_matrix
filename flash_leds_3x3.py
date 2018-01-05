@@ -138,8 +138,10 @@ def pattern_tears():
         play = False
 
 
-PATTERN_ROUTINES = { 0: pattern_random_rain,
-                    1: pattern_tears }
+PATTERN_ROUTINES = {0: pattern_random_rain,
+                    1: pattern_tears}
+
+
 def main():
     """ Main routine to loop patterns.
     """
