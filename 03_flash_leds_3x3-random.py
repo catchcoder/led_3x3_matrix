@@ -20,7 +20,7 @@ import random
 
 run = True
 c_led = 0
-DELAY = 0.3  # time delay between LED
+DELAY = 0.05  # time delay between LED
 
 LEDS_PINS = [17, 27, 22, 10, 9, 11, 5, 6, 13]
 LEVELS_PINS = [2, 3, 4]
