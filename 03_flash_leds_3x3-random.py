@@ -94,7 +94,7 @@ def main():
             if not RUN:
                 break
 
-            GPIO.output(LEDS[l_led], GPIO.HIGH)
+            GPIO.output(l_led, GPIO.HIGH)
             for level in LEVELS:
                 GPIO.output(level, GPIO.LOW)
                 time.sleep(delay)
