@@ -22,6 +22,7 @@ play = False
 run = True
 c_led = 0
 delay = 0.05  # time delay between LED
+pattern_routine = 1
 
 LEDS_PINS = [17, 27, 22, 10, 9, 11, 5, 6, 13]
 LEVELS_PINS = [2, 3, 4]
@@ -31,6 +32,8 @@ PATTERN = [
      5, 4],
     [27, 2, 27, 3, 27, 4, 11, 2, 11, 3, 11, 4, 6, 2, 6, 3, 6, 4, 10, 2, 10, 3,
      10, 4]]
+PATTERN_ROUTINES { 0 : pattern_random_rain,
+              1 : pattern_tears}
 
 BTNSTARTSTOP = 19
 BTNRUN = 26
@@ -77,10 +80,11 @@ def checkifbuttonpressed():
     global play
     global run
     if not GPIO.input(BTNSTARTSTOP):
-        play != play
+        play = not play
+        time.sleep(0.3)
     if not GPIO.input(BTNRUN):
         run = False
-
+        time.sleep(0.3)  # stop debounce when pressing button
 
 def pattern_random_rain():
     """ Rain Pattern.
@@ -114,12 +118,13 @@ def pattern_tears():
     """
     global play
     delay = 0.3
+    print (delay)
     try:
         while play:
             for LEDS in PATTERN:
                 alloff()
 
-                if not play:
+                if not play or not run:
                     break
                 i = 0
                 while i < len(LEDS):
@@ -128,7 +133,6 @@ def pattern_tears():
                     GPIO.output(LEDS[i + 1], GPIO.LOW)
                     time.sleep(delay)
                     i += 2
-                time.sleep(DELAY)
 
     except KeyboardInterrupt:
         play = False
@@ -138,9 +142,13 @@ def main():
     """
     try:
         while run:
+            print ("run ", run)
             checkifbuttonpressed()
             if play:
+                print ("play ", play)
                 pattern_random_rain()
+                pattern_routine += 1
+
     except KeyboardInterrupt:
         GPIO.cleanup()
         sys.exit(0)

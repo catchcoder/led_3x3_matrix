@@ -20,6 +20,7 @@ import random
 
 run = True
 c_led = 0
+l_led = 1
 DELAY = 0.05  # time delay between LED
 
 LEDS_PINS = [17, 27, 22, 10, 9, 11, 5, 6, 13]
@@ -80,12 +81,11 @@ def main():
     """ Basic light up.
     """
     l_led = 0  # LED to light up
+    c_led = 1
     try:
         while run:
-            while True:
+            while c_led != l_led:
                 c_led = random.choice(LEDS_PINS)
-                if c_led != l_led:  # don't light up the same light twice
-                    break
 
             # print (c_led)
             l_led = c_led
