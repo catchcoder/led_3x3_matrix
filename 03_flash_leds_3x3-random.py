@@ -22,12 +22,11 @@ import random
 LEDS_PINS = [17, 27, 22, 10, 9, 11, 5, 6, 13]
 LEVELS_PINS = [2, 3, 4]
 
-RUN = True
-# l_led = 0
+run = True
 c_led = 0
 BTNSTARTSTOP = 19
 BTNPLAY = 26
-DELAY = 0.05
+DELAY = 0.3
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -81,7 +80,7 @@ def main():
     """
     l_led = 0  # LED to light up
     try:
-        while RUN:
+        while run:
             while True:
                 c_led = random.choice(LEDS_PINS)
                 if c_led != l_led:  # don't light up the same light twice
@@ -91,13 +90,13 @@ def main():
             l_led = c_led
             alloff()
 
-            if not RUN:
+            if not run:
                 break
 
             GPIO.output(l_led, GPIO.HIGH)
-            for level in LEVELS:
+            for level in LEVELS_PINS:
                 GPIO.output(level, GPIO.LOW)
-                time.sleep(delay)
+                time.sleep(DELAY)
                 GPIO.output(level, GPIO.HIGH)
 
     except KeyboardInterrupt:
