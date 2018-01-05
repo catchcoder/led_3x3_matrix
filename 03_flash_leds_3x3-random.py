@@ -18,15 +18,16 @@ import time
 import sys
 import random
 
+run = True
+c_led = 0
+DELAY = 0.3  # time delay between LED
 
 LEDS_PINS = [17, 27, 22, 10, 9, 11, 5, 6, 13]
 LEVELS_PINS = [2, 3, 4]
 
-run = True
-c_led = 0
 BTNSTARTSTOP = 19
 BTNPLAY = 26
-DELAY = 0.3
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
