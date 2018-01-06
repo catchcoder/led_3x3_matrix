@@ -91,6 +91,7 @@ def pattern_random_rain():
     """
     l_led = 0  # LED to light up
     global play
+    delay = 0.05
     try:
         while play:
             while True:
@@ -147,13 +148,17 @@ def main():
     """
     alloff()  # clear all LEDs.
     try:
+        global pattern_routine
         while run:
             global pattern_routine
             print ("run ", run)
             checkifbuttonpressed()
             if play:
                 print ("play ", play)
+<<<<<<< HEAD
                 print ("patt ", pattern_routine)
+=======
+>>>>>>> dev
                 PATTERN_ROUTINES[pattern_routine]()
                 pattern_routine += 1
                 if pattern_routine > 1:
