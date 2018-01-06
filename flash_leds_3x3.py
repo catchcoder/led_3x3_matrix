@@ -145,6 +145,7 @@ PATTERN_ROUTINES = {0: pattern_random_rain,
 def main():
     """ Main routine to loop patterns.
     """
+    global pattern_routine
     try:
         while run:
             print ("run ", run)
