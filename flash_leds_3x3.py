@@ -33,6 +33,7 @@ PATTERN_TEARS = [
     [27, 2, 27, 3, 27, 4, 11, 2, 11, 3, 11, 4, 6, 2, 6, 3, 6, 4, 10, 2, 10, 3,
      10, 4]]
 
+PATTERN_SPIRAL = [9,2,10,2,17,2,27,2,22,2,11,2,13,2,6,2,5,2,9,3,10,3,17,3,27,3,22,3,11,3,13,3,6,3,5,3,9,4,10,4,17,4,27,4,22,4,11,4,13,4,6,4,5,4]
 
 BTNSTARTSTOP = 19
 BTNRUN = 26
@@ -80,10 +81,9 @@ def checkifbuttonpressed():
     global run
     if not GPIO.input(BTNSTARTSTOP):
         play = not play
-        time.sleep(0.3)
+        time.sleep(0.3)  # stop debounce when pressing button
     if not GPIO.input(BTNRUN):
         run = False
-        time.sleep(0.3)  # stop debounce when pressing button
 
 
 def pattern_random_rain():
@@ -115,12 +115,11 @@ def pattern_random_rain():
 
 
 def pattern_tears():
-    """ Basic light up.
+    """ Tears routine.
     """
-    global play
-    delay = 0.3
-    print (delay)
     try:
+        global play
+        delay = 0.3
         while play:
             for LEDS in PATTERN_TEARS:
                 alloff()
@@ -130,6 +129,8 @@ def pattern_tears():
                 i = 0
                 while i < len(LEDS):
                     alloff()
+                    if not play or not run:
+                        break
                     GPIO.output(LEDS[i], GPIO.HIGH)
                     GPIO.output(LEDS[i + 1], GPIO.LOW)
                     time.sleep(delay)
@@ -138,9 +139,17 @@ def pattern_tears():
     except KeyboardInterrupt:
         play = False
 
+def pattern_spiral():
+    """ Spiral
+    """
+    try:
+
+
+
 
 PATTERN_ROUTINES = {0: pattern_random_rain,
-                    1: pattern_tears}
+                    1: pattern_tears
+                    2: pattern_spiral}
 
 
 def main():
@@ -151,14 +160,9 @@ def main():
         global pattern_routine
         while run:
             global pattern_routine
-            print ("run ", run)
             checkifbuttonpressed()
             if play:
-                print ("play ", play)
-<<<<<<< HEAD
                 print ("patt ", pattern_routine)
-=======
->>>>>>> dev
                 PATTERN_ROUTINES[pattern_routine]()
                 pattern_routine += 1
                 if pattern_routine > 1:
@@ -166,6 +170,8 @@ def main():
     except KeyboardInterrupt:
         GPIO.cleanup()
         sys.exit(0)
+
+    GPIO.cleanup()
 
 
 setupbuttons()
