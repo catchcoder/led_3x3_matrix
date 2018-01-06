@@ -33,7 +33,10 @@ PATTERN_TEARS = [
     [27, 2, 27, 3, 27, 4, 11, 2, 11, 3, 11, 4, 6, 2, 6, 3, 6, 4, 10, 2, 10, 3,
      10, 4]]
 
-PATTERN_SPIRAL = [9,2,10,2,17,2,27,2,22,2,11,2,13,2,6,2,5,2,9,3,10,3,17,3,27,3,22,3,11,3,13,3,6,3,5,3,9,4,10,4,17,4,27,4,22,4,11,4,13,4,6,4,5,4]
+PATTERN_SPIRAL = [
+    9, 2, 10, 2, 17, 2, 27, 2, 22, 2, 11, 2, 13, 2, 6, 2, 5, 2, 9, 3, 10, 3,
+    17, 3, 27, 3, 22, 3, 11, 3, 13, 3, 6, 3, 5, 3, 9, 4, 10, 4, 17, 4, 27, 4,
+    22, 4, 11, 4, 13, 4, 6, 4, 5, 4]
 
 BTNSTARTSTOP = 19
 BTNRUN = 26
@@ -122,10 +125,6 @@ def pattern_tears():
         delay = 0.3
         while play:
             for LEDS in PATTERN_TEARS:
-                alloff()
-
-                if not play or not run:
-                    break
                 i = 0
                 while i < len(LEDS):
                     alloff()
@@ -139,16 +138,31 @@ def pattern_tears():
     except KeyboardInterrupt:
         play = False
 
+
 def pattern_spiral():
     """ Spiral
     """
     try:
+        global play
+        delay = 0.3
+        while play:
+            for LEDS in PATTERN_SPIRAL:
+                i = 0
+                while i < len(LEDS):
+                    alloff()
+                    if not play or not run:
+                        break
+                    GPIO.output(LEDS[i], GPIO.HIGH)
+                    GPIO.output(LEDS[i + 1], GPIO.LOW)
+                    time.sleep(delay)
+                    i += 2
 
-
+    except KeyboardInterrupt:
+        play = False
 
 
 PATTERN_ROUTINES = {0: pattern_random_rain,
-                    1: pattern_tears
+                    1: pattern_tears,
                     2: pattern_spiral}
 
 
