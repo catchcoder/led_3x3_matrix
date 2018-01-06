@@ -26,7 +26,7 @@ pattern_routine = 0
 
 LEDS_PINS = [17, 27, 22, 10, 9, 11, 5, 6, 13]
 LEVELS_PINS = [2, 3, 4]
-PATTERN = [
+PATTERN_TEARS = [
     [9, 2, 9, 3, 9, 4],
     [17, 2, 17, 3, 17, 4, 22, 2, 22, 3, 22, 4, 13, 2, 13, 3, 13, 4, 5, 2, 5, 3,
      5, 4],
@@ -121,7 +121,7 @@ def pattern_tears():
     print (delay)
     try:
         while play:
-            for LEDS in PATTERN:
+            for LEDS in PATTERN_TEARS:
                 alloff()
 
                 if not play or not run:
@@ -143,16 +143,18 @@ PATTERN_ROUTINES = {0: pattern_random_rain,
 
 
 def main():
-    """ Main routine to loop patterns.
+    """ Main routine with switch bewtween patterns.
     """
-    global pattern_routine
+    alloff()  # clear all LEDs.
     try:
         while run:
+            global pattern_routine
             print ("run ", run)
             checkifbuttonpressed()
             if play:
                 print ("play ", play)
-                PATTERN_ROUTINES[pattern_rountine]()
+                print ("patt ", pattern_routine)
+                PATTERN_ROUTINES[pattern_routine]()
                 pattern_routine += 1
                 if pattern_routine > 1:
                     pattern_routine = 0
