@@ -122,7 +122,7 @@ def pattern_tears():
     """ Tears routine.
     """
     try:
-        print (len(PATTERN_SPIRAL))
+        # print (len(PATTERN_SPIRAL)) # debug
         global _play
         delay = 0.3
         while _play:
@@ -151,7 +151,6 @@ def pattern_spiral():
             i = 0
             while i < len(PATTERN_SPIRAL):
                 alloff()
-                print ("i = ", i)
                 if not _play:
                     break
                 GPIO.output(PATTERN_SPIRAL[i], GPIO.HIGH)
