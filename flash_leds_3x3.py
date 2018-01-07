@@ -39,7 +39,7 @@ PATTERN_SPIRAL = [
     22, 4, 11, 4, 13, 4, 6, 4, 5, 4]
 
 BTNSTARTSTOP = 19   # GPIO pin  used for start, stop and next pattern
-BTN__run = 26       # GPIO pin Used to stop python code from running
+BTNRUN = 26       # GPIO pin Used to stop python code from running
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -85,7 +85,7 @@ def checkifbuttonpressed():
     if not GPIO.input(BTNSTARTSTOP):
         _play = not _play
         time.sleep(0.3)  # stop debounce when pressing button
-    if not GPIO.input(BTN_run):
+    if not GPIO.input(BTNRUN):
         __run = False
 
 
