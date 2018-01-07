@@ -18,14 +18,14 @@ import time
 import sys
 import random
 
-play = False
-run = True
-c_led = 0
-delay = 0.05  # time delay between LED
-pattern_routine = 0
+_play = False   # play pattern and next pattern
+__run = True    # stop code from running
 
-LEDS_PINS = [17, 27, 22, 10, 9, 11, 5, 6, 13]
-LEVELS_PINS = [2, 3, 4]
+delay = 0.05  # time delay between LED, default in case not set
+pattern_routine = 0  # start pattern with 0, change to start with another
+
+LEDS_PINS = [17, 27, 22, 10, 9, 11, 5, 6, 13]   # GPIO pins used for LED +
+LEVELS_PINS = [2, 3, 4]     # GPIO pins used for LED -
 PATTERN_TEARS = [
     [9, 2, 9, 3, 9, 4],
     [17, 2, 17, 3, 17, 4, 22, 2, 22, 3, 22, 4, 13, 2, 13, 3, 13, 4, 5, 2, 5, 3,
@@ -33,13 +33,13 @@ PATTERN_TEARS = [
     [27, 2, 27, 3, 27, 4, 11, 2, 11, 3, 11, 4, 6, 2, 6, 3, 6, 4, 10, 2, 10, 3,
      10, 4]]
 
-ROUTINE_SPIRAL = [
+PATTERN_SPIRAL = [
     9, 2, 10, 2, 17, 2, 27, 2, 22, 2, 11, 2, 13, 2, 6, 2, 5, 2, 9, 3, 10, 3,
     17, 3, 27, 3, 22, 3, 11, 3, 13, 3, 6, 3, 5, 3, 9, 4, 10, 4, 17, 4, 27, 4,
     22, 4, 11, 4, 13, 4, 6, 4, 5, 4]
 
-BTNSTARTSTOP = 19
-BTNRUN = 26
+BTNSTARTSTOP = 19   # GPIO pin  used for start, stop and next pattern
+BTN__run = 26       # GPIO pin Used to stop python code from running
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -49,7 +49,7 @@ def setupbuttons():
     """ Setup Start/Stop button on GPIO12.
     """
     GPIO.setup(BTNSTARTSTOP, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(BTNRUN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(BTN_run, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 def setupleds():
@@ -80,23 +80,24 @@ def alloff():
 def checkifbuttonpressed():
     """ Check if Button pressed.
     """
-    global play
-    global run
+    global _play
+    global _run
     if not GPIO.input(BTNSTARTSTOP):
-        play = not play
+        _play = not _play
         time.sleep(0.3)  # stop debounce when pressing button
-    if not GPIO.input(BTNRUN):
-        run = False
+    if not GPIO.input(BTN_run):
+        __run = False
 
 
 def pattern_random_rain():
     """ Rain Pattern.
     """
     l_led = 0  # LED to light up
-    global play
+    c_led = 0       # counter for LEDS
+    global _play
     delay = 0.05
     try:
-        while play:
+        while _play:
             while True:
                 c_led = random.choice(LEDS_PINS)
                 if c_led != l_led:  # don't light up the same light twice
@@ -104,7 +105,7 @@ def pattern_random_rain():
             l_led = c_led
             alloff()
 
-            if not play:
+            if not _play:
                 break
 
             GPIO.output(l_led, GPIO.HIGH)
@@ -114,22 +115,22 @@ def pattern_random_rain():
                 GPIO.output(level, GPIO.HIGH)
 
     except KeyboardInterrupt:
-        play = False
+        _play = False
 
 
 def pattern_tears():
     """ Tears routine.
     """
     try:
-        print (len(ROUTINE_SPIRAL))
-        global play
+        print (len(PATTERN_SPIRAL))
+        global _play
         delay = 0.3
-        while play:
+        while _play:
             for LEDS in PATTERN_TEARS:
                 i = 0
                 while i < len(LEDS):
                     alloff()
-                    if not play or not run:
+                    if not _play or not _run:
                         break
                     GPIO.output(LEDS[i], GPIO.HIGH)
                     GPIO.output(LEDS[i + 1], GPIO.LOW)
@@ -137,37 +138,37 @@ def pattern_tears():
                     i += 2
 
     except KeyboardInterrupt:
-        play = False
+        _play = False
 
 
 def pattern_spiral():
     """ Spiral
     """
     try:
-        global play
+        global _play
         delay = 0.03
-        while play:
+        while _play:
             i = 0
-            while i < len(ROUTINE_SPIRAL):
+            while i < len(PATTERN_SPIRAL):
                 alloff()
                 print ("i = ", i)
-                if not play:
+                if not _play:
                     break
-                GPIO.output(ROUTINE_SPIRAL[i], GPIO.HIGH)
-                GPIO.output(ROUTINE_SPIRAL[i + 1], GPIO.LOW)
+                GPIO.output(PATTERN_SPIRAL[i], GPIO.HIGH)
+                GPIO.output(PATTERN_SPIRAL[i + 1], GPIO.LOW)
                 time.sleep(delay)
                 i += 2
-            i = (len(ROUTINE_SPIRAL) - 2)
+            i = (len(PATTERN_SPIRAL) - 2)
             while i > 0:
                 alloff()
-                if not play:
+                if not _play:
                     break
-                GPIO.output(ROUTINE_SPIRAL[i], GPIO.HIGH)
-                GPIO.output(ROUTINE_SPIRAL[i + 1], GPIO.LOW)
+                GPIO.output(PATTERN_SPIRAL[i], GPIO.HIGH)
+                GPIO.output(PATTERN_SPIRAL[i + 1], GPIO.LOW)
                 i -= 2
                 time.sleep(delay)
     except KeyboardInterrupt:
-        play = False
+        _play = False
 
 
 PATTERN_ROUTINES = {0: pattern_random_rain,
@@ -182,10 +183,10 @@ def main():
     try:
         global pattern_routine
         # print ("routines ", len(PATTERN_ROUTINES)
-        while run:
+        while _run:
             global pattern_routine
             checkifbuttonpressed()
-            if play:
+            if _play:
                 print ("pattern ", pattern_routine)
                 PATTERN_ROUTINES[pattern_routine]()
                 pattern_routine += 1
