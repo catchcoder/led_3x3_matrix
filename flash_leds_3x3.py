@@ -86,7 +86,7 @@ def checkifbuttonpressed():
         _play = not _play
         time.sleep(0.3)  # stop debounce when pressing button
     if not GPIO.input(BTNRUN):
-        __run = False
+        _run = False
 
 
 def pattern_random_rain():
@@ -181,12 +181,10 @@ def main():
     alloff()  # clear all LEDs.
     try:
         global pattern_routine
-        # print ("routines ", len(PATTERN_ROUTINES)
         while _run:
             global pattern_routine
             checkifbuttonpressed()
             if _play:
-                print ("pattern ", pattern_routine)
                 PATTERN_ROUTINES[pattern_routine]()
                 pattern_routine += 1
                 if pattern_routine > 2:
