@@ -49,7 +49,7 @@ def setupbuttons():
     """ Setup Start/Stop button on GPIO12.
     """
     GPIO.setup(BTNSTARTSTOP, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(BTN_run, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(BTNRUN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 def setupleds():
