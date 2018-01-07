@@ -33,7 +33,7 @@ PATTERN_TEARS = [
     [27, 2, 27, 3, 27, 4, 11, 2, 11, 3, 11, 4, 6, 2, 6, 3, 6, 4, 10, 2, 10, 3,
      10, 4]]
 
-PATTERN_SPIRAL = [
+ROUTINE_SPIRAL = [
     9, 2, 10, 2, 17, 2, 27, 2, 22, 2, 11, 2, 13, 2, 6, 2, 5, 2, 9, 3, 10, 3,
     17, 3, 27, 3, 22, 3, 11, 3, 13, 3, 6, 3, 5, 3, 9, 4, 10, 4, 17, 4, 27, 4,
     22, 4, 11, 4, 13, 4, 6, 4, 5, 4]
@@ -121,6 +121,7 @@ def pattern_tears():
     """ Tears routine.
     """
     try:
+        print (len(ROUTINE_SPIRAL))
         global play
         delay = 0.3
         while play:
@@ -144,19 +145,27 @@ def pattern_spiral():
     """
     try:
         global play
-        delay = 0.3
+        delay = 0.03
         while play:
-            for LEDS in PATTERN_SPIRAL:
-                i = 0
-                while i < len(LEDS):
-                    alloff()
-                    if not play or not run:
-                        break
-                    GPIO.output(LEDS[i], GPIO.HIGH)
-                    GPIO.output(LEDS[i + 1], GPIO.LOW)
-                    time.sleep(delay)
-                    i += 2
-
+            i = 0
+            while i < len(ROUTINE_SPIRAL):
+                alloff()
+                print ("i = ", i)
+                if not play:
+                    break
+                GPIO.output(ROUTINE_SPIRAL[i], GPIO.HIGH)
+                GPIO.output(ROUTINE_SPIRAL[i + 1], GPIO.LOW)
+                time.sleep(delay)
+                i += 2
+            i = (len(ROUTINE_SPIRAL) - 2)
+            while i > 0:
+                alloff()
+                if not play:
+                    break
+                GPIO.output(ROUTINE_SPIRAL[i], GPIO.HIGH)
+                GPIO.output(ROUTINE_SPIRAL[i + 1], GPIO.LOW)
+                i -= 2
+                time.sleep(delay)
     except KeyboardInterrupt:
         play = False
 
@@ -172,14 +181,15 @@ def main():
     alloff()  # clear all LEDs.
     try:
         global pattern_routine
+        # print ("routines ", len(PATTERN_ROUTINES)
         while run:
             global pattern_routine
             checkifbuttonpressed()
             if play:
-                print ("patt ", pattern_routine)
+                print ("pattern ", pattern_routine)
                 PATTERN_ROUTINES[pattern_routine]()
                 pattern_routine += 1
-                if pattern_routine > 1:
+                if pattern_routine > 2:
                     pattern_routine = 0
     except KeyboardInterrupt:
         GPIO.cleanup()
