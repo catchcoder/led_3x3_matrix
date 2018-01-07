@@ -19,7 +19,7 @@ import sys
 import random
 
 _play = False   # play pattern and next pattern
-__run = True    # stop code from running
+_run = True    # stop code from running
 
 delay = 0.05  # time delay between LED, default in case not set
 pattern_routine = 0  # start pattern with 0, change to start with another
