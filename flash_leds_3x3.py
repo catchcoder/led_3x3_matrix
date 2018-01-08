@@ -16,7 +16,9 @@ except ImportError:
 
 import time
 import sys
-import random
+from random import SystemRandom
+
+secure_random = SystemRandom()
 
 _play = False   # play pattern and next pattern
 _run = True    # stop code from running
@@ -99,7 +101,7 @@ def pattern_random_rain():
     try:
         while _play:
             while True:
-                c_led = random.choice(LEDS_PINS)
+                c_led = secure_random.choice(LEDS_PINS)
                 if c_led != l_led:  # don't light up the same light twice
                     break
             l_led = c_led
