@@ -16,8 +16,9 @@ except ImportError:
 
 import time
 import sys
-import random
+from random import SystemRandom
 
+secure_random = SystemRandom()
 _RUN = True
 c_led = 0
 l_led = 1
@@ -85,7 +86,7 @@ def main():
     try:
         while _RUN:
             while c_led != l_led:
-                c_led = random.choice(LEDS_PINS)
+                c_led = secure_random.choice(LEDS_PINS)
 
             # print (c_led)
             l_led = c_led
