@@ -18,7 +18,7 @@ import time
 import sys
 import random
 
-run = True
+_RUN = True
 c_led = 0
 l_led = 1
 DELAY = 0.05  # time delay between LED
@@ -67,9 +67,9 @@ def alloff():
 def checkifbuttonpressed():
     """ Check if Button pressed.
     """
-    global RUN
+    global _RUN
     if not GPIO.input(BTNSTARTSTOP):
-        RUN = False
+        _RUN = False
 
 
 setupbuttons()
@@ -83,7 +83,7 @@ def main():
     l_led = 0  # LED to light up
     c_led = 1
     try:
-        while run:
+        while _RUN:
             while c_led != l_led:
                 c_led = random.choice(LEDS_PINS)
 
@@ -91,7 +91,7 @@ def main():
             l_led = c_led
             alloff()
 
-            if not run:
+            if not _RUN:
                 break
 
             GPIO.output(l_led, GPIO.HIGH)
