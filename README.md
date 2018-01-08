@@ -6,6 +6,7 @@ Led 3x3 matrix for Raspberry PI using Python coding
 [![Build Status](https://travis-ci.org/catchcoder/led_3x3_matix.svg?branch=master)](https://travis-ci.org/catchcoder/led_3x3_matix)
 [![GitHub version](https://badge.fury.io/gh/catchcoder%2Fled_3x3_matix.svg)](https://badge.fury.io/gh/catchcoder%2Fled_3x3_matix)
 [![Code Health](https://landscape.io/github/catchcoder/led_3x3_matix/master/landscape.svg?style=flat)](https://landscape.io/github/catchcoder/led_3x3_matix/master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ccb938d0676443d791f1f2425d5cc94a)](https://www.codacy.com/app/catchcoder/led_3x3_matix?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=catchcoder/led_3x3_matix&amp;utm_campaign=Badge_Grade)
 [![RaspberryPI version](https://img.shields.io/badge/Raspberry%20PI%20-2%2C%203%20and%20Zero-ff69b4.svg)]()
 
 ---
