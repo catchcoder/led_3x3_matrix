@@ -1,4 +1,4 @@
-# Led 3x3 Matix Display
+# Led 3x3 Matrix Display
 Led 3x3 matrix for Raspberry PI using Python coding
 
 ### Status
